@@ -277,6 +277,123 @@
                 transform: translateX(0);
             }
         }
+ /* 兴趣爱好部分样式 */
+        .hobbies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .hobby {
+            text-align: center;
+            width: 160px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .hobby:hover {
+            transform: translateY(-5px);
+        }
+        
+        .hobby-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.8rem;
+            transition: background-color 0.3s;
+        }
+        
+        .hobby:hover .hobby-icon {
+            background-color: var(--accent-color);
+        }
+        
+        .hobby-details-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .hobby-details {
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            margin-top: 20px;
+        }
+        
+        .hobby-details.active {
+            max-height: 500px;
+            padding: 30px;
+        }
+        
+        .hobby-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .hobby-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: #eee;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hobby-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .hobby-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .hobby-text p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hobby-content {
+                flex-direction: column;
+            }
+            
+            .hobby-image {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .hobby-text h3 {
+                font-size: 1.6rem;
+            }
+            
+            .hobby-text p {
+                font-size: 1rem;
+            }
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -446,44 +563,127 @@
                         <p>基于状态剪枝与时空备忘录，开发分布式电网调度优化算法，获得谭永基特别奖。论文在写</p>
                     </div>
     </section>
-
+<!-- 兴趣爱好部分 -->
     <section id="hobbies" style="background-color: var(--secondary-color);">
         <div class="container">
             <h2 class="section-title">兴趣爱好</h2>
             <div class="hobbies-container">
-                <div class="hobby">
+                <!-- 跑步 -->
+                <div class="hobby" data-hobby="running">
                     <div class="hobby-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <p></p>
-                </div>
-                <div class="hobby">
-                    <div class="hobby-icon">
-                        <i class="fas fa-chess"></i>
-                    </div>
-                    <p>国际象棋</p>
-                </div>
-                <div class="hobby">
-                    <div class="hobby-icon">
-                        <i class="fas fa-hiking"></i>
+                        <i class="fas fa-running"></i>
                     </div>
                     <p>跑步</p>
                 </div>
-                <div class="hobby">
+                
+                <!-- 国际象棋 -->
+                <div class="hobby" data-hobby="chess">
+                    <div class="hobby-icon">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <p>国际象棋</p>
+                </div>
+                
+                <!-- 音乐 -->
+                <div class="hobby" data-hobby="music">
                     <div class="hobby-icon">
                         <i class="fas fa-music"></i>
                     </div>
-                    <p>日摇</p>
+                    <p>音乐</p>
                 </div>
-                <div class="hobby">
+                
+                <!-- 羽毛球 -->
+                <div class="hobby" data-hobby="badminton">
                     <div class="hobby-icon">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-table-tennis"></i>
                     </div>
                     <p>羽毛球</p>
+                </div>
+                
+                <!-- 足球 -->
+                <div class="hobby" data-hobby="football">
+                    <div class="hobby-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <p>足球</p>
+                </div>
+            </div>
+            
+            <!-- 兴趣爱好详情容器 -->
+            <div class="hobby-details-container">
+                <div id="running-details" class="hobby-details">
+                    <div class="hobby-content">
+                        <div class="hobby-image">
+                            [跑步照片]
+                        </div>
+                        <div class="hobby-text">
+                            <h3>你也喜欢跑步吗？</h3>
+                            <p>每天坚持跑步5km，享受强风吹拂的感受。</p>
+                            <p>400米pb：58.6s；800米pb：2min14s；1000米pb：2min50s；1500米pb：4min22s；5000米pb：17min22s; 10000米pb：37min14s</p>
+                            <p>从高中开始参加过各种跑步活动，高中校运会获得400m铜牌、1000米银牌；大学参加校运会、校庆跑、马拉松等活动。希望有时间正式跑一次全马/半马。我始终感激高考前半年，每个晚自习课间在找不到光的200米跑道上，肆意奔跑的自己。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chess-details" class="hobby-details">
+                    <div class="hobby-content">
+                        <div class="hobby-image">
+                            [国际象棋照片]
+                        </div>
+                        <div class="hobby-text">
+                            <h3>下盘棋吧！</h3>
+                            <p>从小学开始接触国际象棋，锻炼了我的耐心和意志。</p>
+                            <p>小学四年级获得一级棋士称号。南开大学新生杯拿了殿军后就当作爱好玩了（纯下网棋，2000分左右吧）。下棋横贯了我的高中和大学，虽然浪费了许多时间，但感觉不无收获（例如怎么边下棋边做题有效率等等）。比起各种花式Gambit或是一些有趣的line，更喜欢研究布局和一些局面招法。最喜欢的王兵开局是西西里，纳道尔夫，英国式攻击；最喜欢的后兵开局是格林菲尔德，古典变例；此外还喜欢执白下英国式的侧翼象体系。</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="music-details" class="hobby-details">
+                    <div class="hobby-content">
+                        <div class="hobby-image">
+                            [音乐相关照片]
+                        </div>
+                        <div class="hobby-text">
+                            <h3>”Elma，只有你才是我的音乐“</h3>
+                            <p>音乐是人生。</p>
+                            <p>虽然乐器并不精通，但喜欢音乐。喜欢日摇、流行、摇滚。最喜欢的歌手是yorushika，最喜欢的专辑是Elma。</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="badminton-details" class="hobby-details">
+                    <div class="hobby-content">
+                        <div class="hobby-image">
+                            [羽毛球照片]
+                        </div>
+                        <div class="hobby-text">
+                            <h3>羽毛球</h3>
+                            <p>从小学二年级开始打羽毛球，到现在也坚持了十几年了。</p>
+                            <p>高中时拿过全校双打冠军，是羽毛球队成员。但是种种原因市里的比赛取消了，成为遗憾。大学平常打打球，纯养生了。最喜欢的拍是100zz，最喜欢的线是ab线...感觉自己后场控制还是可以的，网前反应也不错，但是小球技术有点粗，希望有时间精进一下。</p>
+                            <p>希望有人约球！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="football-details" class="hobby-details">
+                    <div class="hobby-content">
+                        <div class="hobby-image">
+                            [足球照片]
+                        </div>
+                        <div class="hobby-text">
+                            <h3>!hala Madrid</h3>
+                            <p>小学开始踢足球，是足球队成员。高中有时间就踢，好玩。后面不踢了。</p>
+                            <p>喜欢踢中锋吃饼跑位，也喜欢踢门将，守门挺有意思的。</p>
+                            <p>更多时间是在看球，真伯纳乌十年球迷，亲眼看皇马从十六郎变成银河战舰又变成破船，最喜欢姆总，雀氏强。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section id="contact">
         <div class="container">
@@ -491,8 +691,8 @@
             <div class="card" style="text-align: center;">
                 <p>如果您对我的经历或项目感兴趣，或想要合作，欢迎通过以下方式联系我：</p>
                 <div style="margin-top: 20px;">
-                    <p><i class="fas fa-envelope"></i> 邮箱：wangfeiming@nankai.edu.cn</p>
-                    <p><i class="fas fa-phone"></i> 电话：+86 185-1819-3530</p>
+                    <p><i class="fas fa-envelope"></i> 邮箱：your.email@nankai.edu.cn</p>
+                    <p><i class="fas fa-phone"></i> 电话：+86 138-XXXX-XXXX</p>
                     <p><i class="fas fa-map-marker-alt"></i> 地址：天津市南开区卫津路94号南开大学</p>
                 </div>
                 <div class="social-links" style="margin-top: 20px;">
@@ -534,7 +734,34 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 兴趣爱好点击事件
+            const hobbies = document.querySelectorAll('.hobby');
+            const hobbyDetails = document.querySelectorAll('.hobby-details');
+            
+            hobbies.forEach(hobby => {
+                hobby.addEventListener('click', function() {
+                    const hobbyType = this.getAttribute('data-hobby');
+                    const detailElement = document.getElementById(`${hobbyType}-details`);
+                    
+                    // 如果当前详情已经是激活状态，则关闭
+                    if (detailElement.classList.contains('active')) {
+                        detailElement.classList.remove('active');
+                    } else {
+                        // 关闭所有其他展开的爱好详情
+                        hobbyDetails.forEach(detail => {
+                            detail.classList.remove('active');
+                        });
+                        // 打开当前点击的爱好详情
+                        detailElement.classList.add('active');
+                        
+                        // 滚动到详情区域
+                        detailElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
-
