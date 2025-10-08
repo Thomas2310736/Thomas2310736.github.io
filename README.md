@@ -1,16 +1,18 @@
-## Hi there 👋
+# 👋 Hi, I'm Thomas!
 
-<!--
-**Thomas2310736/Thomas2310736** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+🎓 I'm a statistics and data science student at Nankai University.  
+🏆 Winner of the Tan Yongji Special Award at the Shenzhen Cup Math Modeling Challenge.  
+💡 Interested in machine learning, data analysis, and optimization modeling.
 
-Here are some ideas to get you started:
+## 🚀 My Projects
+- [📊 Distribution Network Risk Analysis](https://github.com/TrJVK/distribution-risk)
+- [🤖 SAR Image Super-Resolution via Diffusion Models](https://github.com/TrJVK/sar-superres)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 🧠 Skills
+**Languages:** Python, R, MATLAB, SQL  
+**Frameworks:** PyTorch, TensorFlow, Scikit-learn  
+**Tools:** Git, LaTeX, VSCode, Linux
+
+## 🌐 Find me
+- 📫 Email: trjvk@example.com  
+- 🌍 [Personal Blog](https://trjvk.github.io/)
