@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - 南开大学统计学</title>
+    <style>
+        :root {
+            --primary-color: #8a1538; /* 南开紫 */
+            --secondary-color: #f5f5f5;
+            --accent-color: #ffc72c;
+            --text-color: #333;
+            --light-text: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #6a0f2a);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background-color: #ddd;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-date {
+            position: absolute;
+            top: 20px;
+            width: 100px;
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .skill {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        
+        .skill:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .project-img {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .hobbies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .hobby {
+            text-align: center;
+            width: 120px;
+        }
+        
+        .hobby-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.8rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+            }
+            
+            .timeline-date {
+                left: 30px;
+                transform: translateX(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="avatar">
+                <!-- 这里需要替换为你的头像 -->
+                <i class="fas fa-user" style="font-size: 80px; line-height: 150px; color: #aaa;"></i>
+            </div>
+            <h1>飞鸣 王</h1>
+            <p class="subtitle">南开大学 统计与数据科学学院 统计学专业</p>
+            <p>INTP | 大三本科生 | 来自北京 西城</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="card">
+                <p>我是南开大学统计与数据科学学院统计学专业的一名大三本科生。喜欢数学，喜欢机器学习。</p>
+                <p>来自北京西城，一个端庄、平静的地方，陪我走过了我全部难忘的童年。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <h2 class="section-title">教育背景</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>南开大学</h3>
+                        <p>统计与数据科学学院 | 统计学专业</p>
+                        <p>本科 | 2023年9月 - 至今</p>
+                    </div>
+                    <div class="timeline-date">2022-至今</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>北京师范大学第二附属中学</h3>
+                        <p>项目实验班</p>
+                        <p>2020年9月 - 2023年6月</p>
+                    </div>
+                    <div class="timeline-date">2019-2022</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="awards">
+        <div class="container">
+            <h2 class="section-title">获奖经历</h2>
+            <div class="card">
+                <ul style="list-style-type: none;">
+                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-trophy" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                        <strong>2025国家奖学金</strong> - 中华人民共和国教育部
+                    </li>
+                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-award" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                        <strong>2024公能奖学金</strong> - 南开大学
+                    </li>
+                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-medal" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                        <strong>第十五届深圳杯全国大学生数学建模挑战赛 谭永基特别奖</strong> - 全国大学生数学建模竞赛组委会
+                    </li>
+                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-star" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                        <strong>国创项目负责人</strong> - 国家级大学生创新创业训练计划
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <h2 class="section-title">工作与社团经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>南开大学数学建模协会</h3>
+                        <p><strong>副主席</strong> | 2025年9月 - 至今</p>
+                        <p>负责组织校内数学建模竞赛培训、讲座和校际交流活动，协助管理协会日常事务，组织会员参与各类数学建模竞赛。</p>
+                    </div>
+                    <div class="timeline-date">2023-至今</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>南开大学数学建模教练员</h3>
+                        <p><strong>教练员</strong> | 2025年3月 - 至今</p>
+                        <p>指导低年级同学参与数学建模竞赛，提供建模思路、算法实现和论文写作方面的指导，帮助多名同学在各类竞赛中获奖。</p>
+                    </div>
+                    <div class="timeline-date">2023-至今</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">技能专长</h2>
+            <div class="skills-container">
+                <div class="skill">Python</div>
+                <div class="skill">R</div>
+                <div class="skill">MATLAB</div>
+                <div class="skill">SQL</div>
+                <div class="skill">数据可视化</div>
+                <div class="skill">机器学习</div>
+                <div class="skill">统计分析</div>
+                <div class="skill">数学建模</div>
+                <div class="skill">LaTeX</div>
+                <div class="skill">Git</div>
+		<div class="skill">Linux</div>
+                <div class="skill">C++</div>
+		<div class="skill">Markdown</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <h2 class="section-title">相关课程</h2>
+            <div class="skills-container">
+		<div class="skill">数学分析</div>
+		<div class="skill">高等代数</div>
+                <div class="skill">概率论</div>
+		<div class="skill">数理统计</div>
+		<div class="skill">数据库</div>
+		<div class="skill">数据结构</div>
+                <div class="skill">多元统计分析</div>
+                <div class="skill">回归分析</div>
+                <div class="skill">实变函数</div>
+                <div class="skill">机器学习</div>
+                <div class="skill">运筹学</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">项目经历</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img" style="background-color: #8a1538;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">国创项目：基于多任务频谱处理的SAR图像扩散超分辨</h3>
+                        <p>作为项目负责人，带领团队开发了一个基于DDPM/LDM的模型，论文在投</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img" style="background-color: #6a0f2a;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">深圳杯数学建模：分布式电网调度问题</h3>
+                        <p>基于状态剪枝与时空备忘录，开发分布式电网调度优化算法，获得谭永基特别奖。论文在写</p>
+                    </div>
+    </section>
+
+    <section id="hobbies" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <h2 class="section-title">兴趣爱好</h2>
+            <div class="hobbies-container">
+                <div class="hobby">
+                    <div class="hobby-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <p></p>
+                </div>
+                <div class="hobby">
+                    <div class="hobby-icon">
+                        <i class="fas fa-chess"></i>
+                    </div>
+                    <p>国际象棋</p>
+                </div>
+                <div class="hobby">
+                    <div class="hobby-icon">
+                        <i class="fas fa-hiking"></i>
+                    </div>
+                    <p>跑步</p>
+                </div>
+                <div class="hobby">
+                    <div class="hobby-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <p>日摇</p>
+                </div>
+                <div class="hobby">
+                    <div class="hobby-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <p>羽毛球</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我</h2>
+            <div class="card" style="text-align: center;">
+                <p>如果您对我的经历或项目感兴趣，或想要合作，欢迎通过以下方式联系我：</p>
+                <div style="margin-top: 20px;">
+                    <p><i class="fas fa-envelope"></i> 邮箱：your.email@nankai.edu.cn</p>
+                    <p><i class="fas fa-phone"></i> 电话：+86 138-XXXX-XXXX</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 地址：天津市南开区卫津路94号南开大学</p>
+                </div>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 你的姓名 - 南开大学统计与数据科学学院</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">允公允能，日新月异</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card, .skill, .project-card, .hobby');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
