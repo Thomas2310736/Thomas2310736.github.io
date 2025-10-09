@@ -1,770 +1,632 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页 - 南开大学统计学</title>
-    <style>
-        :root {
-            --primary-color: #4169E1; /*  皇家蓝 */
-            --secondary-color: #f5f5f5;
-            --accent-color: #FFA500;
-            --text-color: #333;
-            --light-text: #666;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-        }
-        
-        body {
-            background-color: #f9f9f9;
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #6a0f2a);
-            color: white;
-            padding: 80px 0 40px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-            margin: 0 auto 20px;
-            background-color: #ddd;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s;
-        }
-        
-        .social-links a:hover {
-            transform: translateY(-3px);
-        }
-        
-        section {
-            padding: 60px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--primary-color);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-color);
-            margin: 10px auto;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--primary-color);
-            transform: translateX(-50%);
-        }
-        
-        .timeline-item {
-            display: flex;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-        
-        .timeline-content {
-            width: 45%;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .timeline-date {
-            position: absolute;
-            top: 20px;
-            width: 100px;
-            text-align: center;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .skill {
-            background: white;
-            padding: 15px 25px;
-            border-radius: 30px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-            transition: all 0.3s;
-        }
-        
-        .skill:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .project-img {
-            height: 180px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .project-content {
-            padding: 20px;
-        }
-        
-        .project-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .hobbies-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .hobby {
-            text-align: center;
-            width: 120px;
-        }
-        
-        .hobby-icon {
-            width: 70px;
-            height: 70px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.8rem;
-        }
-        
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .timeline:before {
-                left: 30px;
-            }
-            
-            .timeline-item {
-                flex-direction: row !important;
-            }
-            
-            .timeline-content {
-                width: calc(100% - 80px);
-                margin-left: 80px;
-            }
-            
-            .timeline-date {
-                left: 30px;
-                transform: translateX(0);
-            }
-        }
- /* 兴趣爱好部分样式 */
-        .hobbies-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .hobby {
-            text-align: center;
-            width: 160px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .hobby:hover {
-            transform: translateY(-5px);
-        }
-        
-        .hobby-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.8rem;
-            transition: background-color 0.3s;
-        }
-        
-        .hobby:hover .hobby-icon {
-            background-color: var(--accent-color);
-        }
-        
-        .hobby-details-container {
-            width: 100%;
-            overflow: hidden;
-        }
-        
-        .hobby-details {
-            width: 100%;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-            margin-top: 20px;
-        }
-        
-        .hobby-details.active {
-            max-height: 500px;
-            padding: 30px;
-        }
-        
-        .hobby-content {
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
-        
-        .hobby-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 10px;
-            background-color: #eee;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .hobby-text {
-            flex: 1;
-            text-align: left;
-        }
-        
-        .hobby-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        
-        .hobby-text p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
-        
-        @media (max-width: 768px) {
-            .hobby-content {
-                flex-direction: column;
-            }
-            
-            .hobby-image {
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .hobby-text h3 {
-                font-size: 1.6rem;
-            }
-            
-            .hobby-text p {
-                font-size: 1rem;
-            }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>王飞鸣 · 南开大学统计学 | Academic Page</title>
+  <meta name="description" content="学术主页：教育、项目、获奖、出版物、联系方式（中英切换）。" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0f1a2b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== Tokens：学院派、紧凑、低饱和 ===== */
+    :root{
+      --page-max: 960px;
+      --x-1: 6px;   /* xxs */
+      --x-2: 10px;  /* xs  */
+      --x-3: 14px;  /* sm  */
+      --x-4: 18px;  /* md  */
+      --x-5: 24px;  /* lg  */
+      --section-y: 28px;
+      --radius: 8px;
+
+      /* Light (默认跟随系统，下面 dark 会覆盖) */
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --card-2: #fbfbfd;
+      --text: #101522;
+      --muted: #5c667a;
+      --border: #d7dce6;
+      --link: #0b4ad8;
+      --chip: #f3f5f9;
+      --nav: rgba(255,255,255,.9);
+      --shadow: 0 1px 2px rgba(16,21,34,.05);
+
+      --bg-image: url('DATA_URI_WILL_BE_INJECTED');
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0f1a2b;          /* 深海军蓝 */
+        --card: #0f1626;
+        --card-2: #101a2c;
+        --text: #e9eef8;
+        --muted: #a9b5c9;
+        --border: #2a3a56;
+        --link: #bcd4ff;
+        --chip: #0f1a2f;
+        --nav: rgba(11,22,41,.9);
+        --shadow: 0 1px 2px rgba(0,0,0,.2);
+      }
+    }
+.hero .card{
+  max-width: 640px;   /* 想要的宽度 */
+  width: 100%;
+  justify-self: start; /* 避免被拉伸 */
+}
+    /* ===== Base ===== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); background:var(--bg);
+      background-image: var(--bg-image);
+      background-size: cover; background-position:center; background-attachment: fixed;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height:1.55; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    img{max-width:100%;display:block}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    :focus-visible{outline: 2px solid var(--link); outline-offset: 2px}
+    .muted{color:var(--muted)}
+    .container{max-width:var(--page-max); margin:0 auto; padding:0 var(--x-3)}
+    h1,h2,h3{
+      font-family: Georgia, "Times New Roman","Noto Serif SC","Songti SC", serif;
+      letter-spacing:.2px; margin:0 0 .25rem 0;
+    }
+    h1{font-size: clamp(1.2rem, 2.2vw, 1.6rem)}
+    h2{font-size: clamp(1.05rem, 1.8vw, 1.25rem)}
+    h3{font-size: clamp(1rem, 1.6vw, 1.1rem)}
+    section{scroll-margin-top: 72px}
+
+    /* ===== Nav：简洁、粘顶、可读 ===== */
+    .nav{position:sticky; top:0; z-index:50; border-bottom:1px solid var(--border); background:var(--nav); backdrop-filter: blur(6px)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:56px}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; color:inherit}
+    .brand .dot{width:6px;height:6px;border-radius:50%; background:#c8a76b}
+    .nav-links{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
+    .nav-links a{color:inherit; padding:6px 8px; border-radius:6px}
+    .nav-links a:is(:hover,.active){background:var(--card-2); border:1px solid var(--border)}
+    .btn{border:1px solid var(--border); background:var(--card-2); color:inherit; padding:6px 10px; border-radius:6px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow: var(--shadow)}
+
+    /* ===== Header / Hero ===== */
+    header{padding:22px 0; border-bottom:1px solid var(--border)}
+    .hero{display:grid; grid-template-columns:1fr 210px; gap:14px; align-items:center}
+    .subtitle{color:var(--muted); margin:.25rem 0 .5rem}
+    .meta-row{color:var(--muted); font-size:.95rem; display:flex; gap:.5rem; flex-wrap:wrap}
+    .avatar{width:200px; height:200px; border-radius:8px; overflow:hidden; border:1px solid var(--border); box-shadow: var(--shadow)}
+
+    /* ===== Section Head ===== */
+    .section-title{display:flex; align-items:center; gap:10px; font-weight:700; margin:0 0 var(--x-2)}
+    .title-bar{flex:1; height:2px; background:var(--border)}
+    main section{padding:var(--section-y) 0}
+
+    /* ===== Card / Alt ===== */
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:12px; box-shadow: var(--shadow)}
+    .alt{background:var(--card-2)}
+
+    /* ===== Timeline ===== */
+    .timeline{position:relative; margin-left:6px}
+    .timeline:before{content:''; position:absolute; left:5px; top:0; bottom:0; width:1px; background:var(--border)}
+    .tl-item{position:relative; padding-left:18px; margin:10px 0}
+    .tl-item:before{content:''; position:absolute; left:0; top:.55rem; width:8px; height:8px; border-radius:50%; background:#c8a76b}
+    .tl-heading{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
+    .tl-time{white-space:nowrap; color:var(--muted); font-variant-numeric: tabular-nums}
+
+    /* ===== Lists / Chips ===== */
+    .awards{list-style:none; margin:0; padding:0}
+    .awards li{display:flex; gap:10px; align-items:flex-start; padding:8px 0; border-bottom:1px dashed var(--border)}
+    .awards i{color:#c8a76b; margin-top:2px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--border)}
+
+    /* ===== Grid ===== */
+    .projects{display:grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:12px}
+    .project{border:1px solid var(--border); border-radius:var(--radius); background:var(--card)}
+    .project-header{padding:10px 12px; border-bottom:1px solid var(--border); background:var(--card-2); font-weight:600}
+    .project-content{padding:12px}
+
+    .pubs{display:grid; gap:10px}
+    .pub{padding:12px; border:1px solid var(--border); border-radius:6px; background:var(--card-2)}
+    .pub .meta{color:var(--muted); font-size:.95rem}
+
+    /* ===== Hobbies ===== */
+    .hobbies{display:grid; grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); gap:10px}
+    .hobby{ text-align:center; border:1px solid var(--border); border-radius:6px; background:var(--card-2); padding:10px; cursor:pointer}
+    .hobby .icon{ width:44px; height:44px; border:1px solid var(--border); border-radius:6px; display:grid; place-items:center; margin:0 auto 6px; background:var(--card) }
+
+    .hobby-details{ overflow:hidden; max-height:0; transition:max-height .25s ease; border:1px solid var(--border); border-radius:6px; background:var(--card-2); margin-top:10px }
+    .hobby-details.active{ max-height:480px }
+    .hobby-content{ display:grid; grid-template-columns: 240px 1fr; gap:12px; padding:12px }
+    .hobby-image{ border:1px solid var(--border); border-radius:6px; height:200px; display:grid; place-items:center; color:var(--muted); background:var(--card) }
+
+    /* ===== Utilities ===== */
+    .reveal{opacity:0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease}
+    .reveal.in{opacity:1; transform:none}
+    .hide-print{display:initial}
+    .only-print{display:none}
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      .hobby-content{grid-template-columns:1fr}
+    }
+
+    /* ===== Language visibility ===== */
+    [data-lang="zh"] .lang-en{display:none}
+    [data-lang="en"] .lang-zh{display:none}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--border); padding:16px 0; text-align:center; color:var(--muted)}
+
+    /* ===== Print ===== */
+    @media print{
+      nav, .lang-toggle, .download-pdf, .to-top, .hide-print { display:none !important }
+      .only-print{display:block}
+      body{ background:#fff; color:#111 }
+      section{ padding:16px 0 }
+      .card,.project,.pub,.hobby,.hobby-details{ background:#fff; border:1px solid #bbb; box-shadow:none }
+      a{ color:#004aad !important; text-decoration:none }
+    }
+
+
+/* === Hobbies：≥921px 固定一行 5 个 === */
+@media (min-width: 921px){
+  .hobbies{
+    grid-template-columns: repeat(5, minmax(180px, 1fr));
+    gap: 8px; /* 覆盖原来的 10px，刚好 5×180 + 4×8 = 932px */
+  }
+}
+
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="avatar">
-                <!-- 这里需要替换为你的头像 -->
-                <img src="pic/pic1.jpg" alt="飞鸣 王" id="profile-avatar">
-            </div>
-            <h1>飞鸣 王</h1>
-            <p class="subtitle">南开大学 统计与数据科学学院 统计学专业</p>
-            <p>INTP | 大三本科生 | 来自北京 西城</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fas fa-envelope"></i></a>
-                <a href="#"><i class="fab fa-weixin"></i></a>
-            </div>
-        </div>
-    </header>
+  <a href="#about" class="hide-print" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
 
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">关于我</h2>
-            <div class="card">
-                <p>我是南开大学统计与数据科学学院统计学专业的一名大三本科生。喜欢数学，喜欢机器学习。</p>
-                <p>来自北京西城，一个端庄、平静的地方，陪我走过了我全部难忘的童年。</p>
-            </div>
+  <!-- ===== Nav ===== -->
+  <nav class="nav" aria-label="Primary">
+    <div class="container nav-inner">
+      <a class="brand" href="#top"><span class="dot"></span> <span class="lang-zh">我的主页</span><span class="lang-en">Homepage</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">关于</a>
+        <a href="#education">教育</a>
+        <a href="#awards">奖项</a>
+        <a href="#experience">经历</a>
+        <a href="#skills">技能</a>
+        <a href="#courses">课程</a>
+        <a href="#projects">项目</a>
+        <a href="#publications">出版物</a>
+        <a href="#hobbies">爱好</a>
+        <a href="#contact">联系</a>
+        <button id="langToggle" class="btn lang-toggle" type="button" title="切换语言">
+          <i class="fa-solid fa-language" aria-hidden="true"></i>
+          <span class="lang-zh"> 切换 English</span><span class="lang-en"> Switch 中文</span>
+        </button>
+        <button id="downloadPDF" class="btn download-pdf" type="button" title="打印为 PDF">
+          <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+          <span class="lang-zh"> PDF简历</span><span class="lang-en"> PDF CV</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Header / Hero ===== -->
+  <header id="top" class="reveal">
+    <div class="container hero">
+      <div class="card">
+        <h1>
+          <span class="lang-zh">南开大学 · 统计与数据科学学院 · 统计学</span>
+          <span class="lang-en">Nankai University · School of Statistics & Data Science · Statistics</span>
+        </h1>
+        <p class="meta-row">
+          <span>INTP · <span class="lang-zh">大三</span><span class="lang-en">Junior</span></span>
+          <span class="lang-zh"> · 北京西城</span><span class="lang-en"> · Xicheng, Beijing</span>
+        </p>
+        <div style="display:flex;gap:8px;margin-top:6px" aria-label="social links">
+          <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:wangfeiming@mail.nankai.edu.cn" aria-label="Email" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="#" aria-label="WeChat" title="WeChat"><i class="fab fa-weixin"></i></a>
         </div>
+      </div>
+      <div style="justify-self:end">
+        <figure class="avatar"><img src="pic/pic1.jpg" alt="Feiming Wang photo"></figure>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== About ===== -->
+    <section id="about" class="reveal">
+      <div class="container">
+        <div class="section-title">
+          <span class="title-bar"></span><span class="lang-zh">关于我</span><span class="lang-en">About</span><span class="title-bar"></span>
+        </div>
+        <div class="card">
+          <p class="lang-zh">我是南开大学统计与数据科学学院统计学专业的大三本科生，喜欢数学，喜欢机器学习。来自北京西城，一个端庄、平静的地方，陪我走过了我全部难忘的童年。</p>
+          <p class="lang-en">I am a junior majoring in Statistics at the School of Statistics and Data Science, Nankai University. I love mathematics and machine learning. I come from Xicheng District, Beijing—a dignified and tranquil place that accompanied me through an unforgettable childhood.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="education" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">教育背景</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>南开大学</h3>
-                        <p>统计与数据科学学院 | 统计学专业</p>
-                        <p>本科 | 2023年9月 - 至今</p>
-                    </div>
-                    <div class="timeline-date">2023-至今</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>北京师范大学第二附属中学</h3>
-                        <p>项目实验班</p>
-                        <p>2020年9月 - 2023年6月</p>
-                    </div>
-                    <div class="timeline-date">2020-2023</div>
-                </div>
+    <!-- ===== Education ===== -->
+    <section id="education" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">教育背景</span><span class="lang-en">Education</span><span class="title-bar"></span></div>
+        <div class="card">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-heading">
+                <h3><span class="lang-zh">南开大学 · 统计与数据科学学院</span><span class="lang-en">Nankai University · School of Statistics & Data Science </span></h3>
+                <div class="tl-time">2023.09 – <span class="lang-zh">至今</span><span class="lang-en">present</span></div>
+              </div>
+              <div class="muted"><span class="lang-zh">本科|统计学</span><span class="lang-en">B.Sc.|Statistics</span></div>
             </div>
+            <div class="tl-item">
+              <div class="tl-heading">
+                <h3><span class="lang-zh">北京师范大学第二附属中学</span><span class="lang-en">The Second High School Attached to BNU</span></h3>
+                <div class="tl-time">2020.09 – 2023.06</div>
+              </div>
+              <div class="muted"><span class="lang-zh">项目实验班</span><span class="lang-en">Honors Experimental Program</span></div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="awards">
-        <div class="container">
-            <h2 class="section-title">获奖经历</h2>
-            <div class="card">
-                <ul style="list-style-type: none;">
-                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
-                        <i class="fas fa-trophy" style="color: var(--accent-color); position: absolute; left: 0;"></i>
-                        <strong>2025国家奖学金</strong> - 中华人民共和国教育部
-                    </li>
-                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
-                        <i class="fas fa-award" style="color: var(--accent-color); position: absolute; left: 0;"></i>
-                        <strong>2024公能奖学金</strong> - 南开大学
-                    </li>
-                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
-                        <i class="fas fa-medal" style="color: var(--accent-color); position: absolute; left: 0;"></i>
-                        <strong>第十五届深圳杯全国大学生数学建模挑战赛 谭永基特别奖</strong> - 全国大学生数学建模竞赛组委会
-                    </li>
-                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
-                        <i class="fas fa-star" style="color: var(--accent-color); position: absolute; left: 0;"></i>
-                        <strong>国创项目负责人</strong> - 国家级大学生创新创业训练计划
-                    </li>
-					</li>
-                    <li style="margin-bottom: 15px; padding-left: 20px; position: relative;">
-                        <i class="fas fa-medal" style="color: var(--accent-color); position: absolute; left: 0;"></i>
-                        <strong>2023运动会400米银牌</strong> - 南开大学体育部
-                    </li>
-                </ul>
-            </div>
+    <!-- ===== Awards ===== -->
+    <section id="awards" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">获奖经历</span><span class="lang-en">Awards</span><span class="title-bar"></span></div>
+        <div class="card">
+          <ul class="awards">
+            <li><i class="fa-solid fa-trophy" aria-hidden="true"></i>
+              <div><strong><span class="lang-zh">2025 国家奖学金</span><span class="lang-en">2025 National Scholarship (China)</span></strong> · <span class="lang-zh">教育部</span><span class="lang-en">MOE, PRC</span></div>
+            </li>
+            <li><i class="fa-solid fa-award" aria-hidden="true"></i>
+              <div><strong><span class="lang-zh">2024 公能奖学金</span><span class="lang-en">2024 Gongneng Scholarship</span></strong> · <span class="lang-zh">南开大学</span><span class="lang-en">Nankai University</span></div>
+            </li>
+            <li><i class="fa-solid fa-medal" aria-hidden="true"></i>
+              <div><strong><span class="lang-zh">深圳杯数学建模 · 谭永基特别奖</span><span class="lang-en">Shenzhen Cup Math Modeling · Tan Yongji Special Award</span></strong></div>
+            </li>
+            <li><i class="fa-solid fa-star" aria-hidden="true"></i>
+              <div><strong><span class="lang-zh">国创项目负责人</span><span class="lang-en">PI, National Innovation Program</span></strong></div>
+            </li>
+            <li><i class="fa-solid fa-person-running" aria-hidden="true"></i>
+              <div><strong><span class="lang-zh">2023 运动会 400m 银牌</span><span class="lang-en">2023 Sports Meet · 400m Silver</span></strong></div>
+            </li>
+          </ul>
         </div>
+      </div>
     </section>
 
-    <section id="experience" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">工作与社团经历</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>南开大学数学建模协会</h3>
-                        <p><strong>副主席</strong> | 2025年9月 - 至今</p>
-                        <p>负责组织校内数学建模竞赛培训、讲座和校际交流活动，协助管理协会日常事务，组织会员参与各类数学建模竞赛。</p>
-                    </div>
-                    <div class="timeline-date">2023-至今</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>南开大学数学建模教练员</h3>
-                        <p><strong>教练员</strong> | 2025年3月 - 至今</p>
-                        <p>指导低年级同学参与数学建模竞赛，提供建模思路、算法实现和论文写作方面的指导，帮助多名同学在各类竞赛中获奖。</p>
-                    </div>
-                    <div class="timeline-date">2023-至今</div>
-                </div>
+    <!-- ===== Experience ===== -->
+    <section id="experience" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">工作与社团经历</span><span class="lang-en">Experience</span><span class="title-bar"></span></div>
+        <div class="card">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-heading">
+                <h3><span class="lang-zh">南开大学数学建模协会 · </span><span class="lang-en">Nankai M.M. Association · </span><strong><span class="lang-zh">副主席</span><span class="lang-en">Vice President</span></strong></h3>
+                <div class="tl-time">2025.09 – <span class="lang-zh">至今</span><span class="lang-en">present</span></div>
+              </div>
+              <div class="muted">
+                <span class="lang-zh">负责培训与校际交流，组织竞赛与论文写作指导。</span>
+                <span class="lang-en">Organized training & intercollegiate exchange; coached competitions and writing.</span>
+              </div>
             </div>
+            <div class="tl-item">
+              <div class="tl-heading">
+                <h3><span class="lang-zh">南开大学 · </span><span class="lang-en">Nankai University · </span><strong><span class="lang-zh">数学建模教练员</span><span class="lang-en">Modeling Coach</span></strong></h3>
+                <div class="tl-time">2025.03 – <span class="lang-zh">至今</span><span class="lang-en">present</span></div>
+              </div>
+              <div class="muted">
+                <span class="lang-zh">指导低年级同学在建模思路、算法实现、与论文规范。</span>
+                <span class="lang-en">Coaching in modeling ideas, implementation, and academic writing.</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">技能专长</h2>
-            <div class="skills-container">
-                <div class="skill">Python</div>
-                <div class="skill">R</div>
-                <div class="skill">MATLAB</div>
-                <div class="skill">SQL</div>
-                <div class="skill">数据可视化</div>
-                <div class="skill">机器学习</div>
-                <div class="skill">统计分析</div>
-                <div class="skill">数学建模</div>
-                <div class="skill">LaTeX</div>
-                <div class="skill">Git</div>
-		<div class="skill">Linux</div>
-                <div class="skill">C++</div>
-		<div class="skill">Markdown</div>
-            </div>
+    <!-- ===== Skills ===== -->
+    <section id="skills" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">技能专长</span><span class="lang-en">Skills</span><span class="title-bar"></span></div>
+        <div class="card">
+          <div class="chips" aria-label="skills">
+            <span class="chip">Python</span><span class="chip">R</span><span class="chip">MATLAB</span><span class="chip">SQL</span>
+            <span class="chip lang-zh">机器学习</span><span class="chip lang-en">Machine Learning</span>
+            <span class="chip lang-zh">统计推断</span><span class="chip lang-en">Statistical Inference</span>
+            <span class="chip lang-zh">数据可视化</span><span class="chip lang-en">Data Visualization</span>
+            <span class="chip">LaTeX</span><span class="chip">Git</span><span class="chip">Linux</span><span class="chip">C++</span>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="courses" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">相关课程</h2>
-            <div class="skills-container">
-		<div class="skill">数学分析</div>
-		<div class="skill">高等代数</div>
-                <div class="skill">概率论</div>
-		<div class="skill">数理统计</div>
-		<div class="skill">数据库</div>
-		<div class="skill">数据结构</div>
-                <div class="skill">多元统计分析</div>
-                <div class="skill">回归分析</div>
-                <div class="skill">实变函数</div>
-                <div class="skill">机器学习</div>
-                <div class="skill">运筹学</div>
-            </div>
+    <!-- ===== Courses ===== -->
+    <section id="courses" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">相关课程</span><span class="lang-en">Relevant Courses</span><span class="title-bar"></span></div>
+        <div class="card">
+          <div class="chips">
+            <span class="chip lang-zh">数学分析</span><span class="chip lang-en">Mathematical Analysis</span>
+            <span class="chip lang-zh">高等代数</span><span class="chip lang-en">Advanced Algebra</span>
+            <span class="chip lang-zh">概率论</span><span class="chip lang-en">Probability</span>
+            <span class="chip lang-zh">数理统计</span><span class="chip lang-en">Mathematical Statistics</span>
+            <span class="chip lang-zh">多元统计分析</span><span class="chip lang-en">Multivariate Analysis</span>
+            <span class="chip lang-zh">回归分析</span><span class="chip lang-en">Regression</span>
+            <span class="chip lang-zh">实变函数</span><span class="chip lang-en">Real Analysis</span>
+            <span class="chip lang-zh">数据库</span><span class="chip lang-en">Databases</span>
+            <span class="chip lang-zh">数据结构</span><span class="chip lang-en">Data Structures</span>
+            <span class="chip lang-zh">机器学习</span><span class="chip lang-en">Machine Learning</span>
+            <span class="chip lang-zh">运筹学</span><span class="chip lang-en">Operations Research</span>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title">项目经历</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #8a1538;"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">国创项目：基于多任务频谱处理的SAR图像扩散超分辨</h3>
-                        <p>作为项目负责人，带领团队开发了一个基于DDPM/LDM的模型，论文在投</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #6a0f2a;"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">深圳杯数学建模：分布式电网调度问题</h3>
-                        <p>基于状态剪枝与时空备忘录，开发分布式电网调度优化算法，获得谭永基特别奖。论文在写</p>
-                    </div>
-    </section>
-<!-- 兴趣爱好部分 -->
-    <section id="hobbies" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">兴趣爱好</h2>
-            <div class="hobbies-container">
-                <!-- 跑步 -->
-                <div class="hobby" data-hobby="running">
-                    <div class="hobby-icon">
-                        <i class="fas fa-running"></i>
-                    </div>
-                    <p>跑步</p>
-                </div>
-                
-                <!-- 国际象棋 -->
-                <div class="hobby" data-hobby="chess">
-                    <div class="hobby-icon">
-                        <i class="fas fa-chess-knight"></i>
-                    </div>
-                    <p>国际象棋</p>
-                </div>
-                
-                <!-- 音乐 -->
-                <div class="hobby" data-hobby="music">
-                    <div class="hobby-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <p>音乐</p>
-                </div>
-                
-                <!-- 羽毛球 -->
-                <div class="hobby" data-hobby="badminton">
-                    <div class="hobby-icon">
-                        <i class="fas fa-table-tennis"></i>
-                    </div>
-                    <p>羽毛球</p>
-                </div>
-                
-                <!-- 足球 -->
-                <div class="hobby" data-hobby="football">
-                    <div class="hobby-icon">
-                        <i class="fas fa-futbol"></i>
-                    </div>
-                    <p>足球</p>
-                </div>
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">项目经历</span><span class="lang-en">Projects</span><span class="title-bar"></span></div>
+        <div id="projectsList" class="projects">
+          <article class="project">
+            <div class="project-header">
+              <strong class="lang-zh">国创：多任务频谱处理的 SAR 图像扩散超分辨</strong>
+              <strong class="lang-en">National Innovation: SAR Diffusion Super-Resolution via Multi-task Spectral Processing</strong>
             </div>
-            
-            <!-- 兴趣爱好详情容器 -->
-            <div class="hobby-details-container">
-                <div id="running-details" class="hobby-details">
-                    <div class="hobby-content">
-                        <div class="hobby-image">
-                            [跑步照片]
-                        </div>
-                        <div class="hobby-text">
-                            <h3>你也喜欢跑步吗？</h3>
-                            <p>每天坚持跑步5km，享受强风吹拂的感受。</p>
-                            <p>400米pb：58.6s；800米pb：2min14s；1000米pb：2min50s；1500米pb：4min22s；5000米pb：17min22s; 10000米pb：37min14s</p>
-                            <p>从高中开始参加过各种跑步活动，高中校运会获得400m铜牌、1000米银牌；大学参加校运会、校庆跑、马拉松等活动。希望有时间正式跑一次全马/半马。我始终感激高考前半年，每个晚自习课间在找不到光的200米跑道上，肆意奔跑的自己。</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="chess-details" class="hobby-details">
-                    <div class="hobby-content">
-                        <div class="hobby-image">
-                            [国际象棋照片]
-                        </div>
-                        <div class="hobby-text">
-                            <h3>下盘棋吧！</h3>
-                            <p>从小学开始接触国际象棋，锻炼了我的耐心和意志。</p>
-                            <p>小学四年级获得一级棋士称号。南开大学新生杯拿了殿军后就当作爱好玩了（纯下网棋，2000分左右吧）。下棋横贯了我的高中和大学，虽然浪费了许多时间，但感觉不无收获（例如怎么边下棋边做题有效率等等）。比起各种花式Gambit或是一些有趣的line，更喜欢研究布局和一些局面招法。最喜欢的王兵开局是西西里，纳道尔夫，英国式攻击；最喜欢的后兵开局是格林菲尔德，古典变例；此外还喜欢执白下英国式的侧翼象体系。</p>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="music-details" class="hobby-details">
-                    <div class="hobby-content">
-                        <div class="hobby-image">
-                            [音乐相关照片]
-                        </div>
-                        <div class="hobby-text">
-                            <h3>”Elma，只有你才是我的音乐“</h3>
-                            <p>音乐是人生。</p>
-                            <p>虽然乐器并不精通，但喜欢音乐。喜欢日摇、流行、摇滚。最喜欢的歌手是yorushika，最喜欢的专辑是Elma。</p>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="badminton-details" class="hobby-details">
-                    <div class="hobby-content">
-                        <div class="hobby-image">
-                            [羽毛球照片]
-                        </div>
-                        <div class="hobby-text">
-                            <h3>羽毛球</h3>
-                            <p>从小学二年级开始打羽毛球，到现在也坚持了十几年了。</p>
-                            <p>高中时拿过全校双打冠军，是羽毛球队成员。但是种种原因市里的比赛取消了，成为遗憾。大学平常打打球，纯养生了。最喜欢的拍是100zz，最喜欢的线是ab线...感觉自己后场控制还是可以的，网前反应也不错，但是小球技术有点粗，希望有时间精进一下。</p>
-                            <p>希望有人约球！</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="football-details" class="hobby-details">
-                    <div class="hobby-content">
-                        <div class="hobby-image">
-                            [足球照片]
-                        </div>
-                        <div class="hobby-text">
-                            <h3>!hala Madrid</h3>
-                            <p>小学开始踢足球，是足球队成员。高中有时间就踢，好玩。后面不踢了。</p>
-                            <p>喜欢踢中锋吃饼跑位，也喜欢踢门将，守门挺有意思的。</p>
-                            <p>更多时间是在看球，真伯纳乌十年球迷，亲眼看皇马从十六郎变成银河战舰又变成破船，最喜欢姆总，雀氏强。</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="project-content">
+              <p class="lang-zh">项目负责人。基于 DDPM/LDM 的模型设计与实验，论文在投。</p>
+              <p class="lang-en">PI. Designed DDPM/LDM-based model and experiments; manuscript under review.</p>
             </div>
+          </article>
+          <article class="project">
+            <div class="project-header">
+              <strong class="lang-zh">深圳杯：分布式电网调度</strong>
+              <strong class="lang-en">Shenzhen Cup: Distributed Power Grid Scheduling</strong>
+            </div>
+            <div class="project-content">
+              <p class="lang-zh">采用状态剪枝与时空备忘录进行调度优化，获谭永基特别奖。</p>
+              <p class="lang-en">Optimization via state pruning & spatiotemporal memoization; Tan Yongji Special Award.</p>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">联系我</h2>
-            <div class="card" style="text-align: center;">
-                <p>如果您对我的经历或工作感兴趣，或想要合作，欢迎通过以下方式联系我：</p>
-                <div style="margin-top: 20px;">
-                    <p><i class="fas fa-envelope"></i> 邮箱：wangfeiming@mail.nankai.edu.cn</p>
-                    <p><i class="fas fa-phone"></i> 电话：+86 18518193530</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 地址：天津市南开区卫津路94号南开大学</p>
-                </div>
-                <div class="social-links" style="margin-top: 20px;">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                    <a href="#"><i class="fab fa-weixin"></i></a>
-                </div>
-            </div>
+    <!-- ===== Publications ===== -->
+    <section id="publications" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">学术出版物</span><span class="lang-en">Publications</span><span class="title-bar"></span></div>
+        <div id="pubList" class="pubs">
+          <div class="pub">
+            <div><strong>[1]</strong> <span class="lang-zh">基于扩散模型的 SAR 图像超分辨研究（在投）</span><span class="lang-en">SAR Image Super-Resolution with Diffusion Models (under review)</span></div>
+            <div class="meta">DDPM/LDM · <span class="lang-zh">预印本即将上线</span><span class="lang-en">preprint forthcoming</span></div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>© 2025 王飞鸣 - 南开大学统计与数据科学学院</p>
-            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">允公允能，日新月异</p>
+    <!-- ===== Hobbies ===== -->
+    <section id="hobbies" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">兴趣爱好</span><span class="lang-en">Hobbies</span><span class="title-bar"></span></div>
+        <div class="hobbies" role="list">
+          <div class="hobby" data-hobby="running" role="listitem" tabindex="0">
+            <div class="icon"><i class="fa-solid fa-person-running" aria-hidden="true"></i></div>
+            <div><strong class="lang-zh">跑步</strong><strong class="lang-en">Running</strong></div>
+            <small><a href="/hobbies/running.html" target="_blank" rel="noopener"><span class="lang-zh">了解更多</span><span class="lang-en">Learn more</span></a></small>
+          </div>
+          <div class="hobby" data-hobby="chess" role="listitem" tabindex="0">
+            <div class="icon"><i class="fa-solid fa-chess-knight" aria-hidden="true"></i></div>
+            <div><strong class="lang-zh">国际象棋</strong><strong class="lang-en">Chess</strong></div>
+            <small><a href="/hobbies/chess.html" target="_blank" rel="noopener"><span class="lang-zh">了解更多</span><span class="lang-en">Learn more</span></a></small>
+          </div>
+          <div class="hobby" data-hobby="music" role="listitem" tabindex="0">
+            <div class="icon"><i class="fa-solid fa-music" aria-hidden="true"></i></div>
+            <div><strong class="lang-zh">音乐</strong><strong class="lang-en">Music</strong></div>
+            <small><a href="/hobbies/music.html" target="_blank" rel="noopener"><span class="lang-zh">了解更多</span><span class="lang-en">Learn more</span></a></small>
+          </div>
+          <div class="hobby" data-hobby="badminton" role="listitem" tabindex="0">
+            <div class="icon"><i class="fa-solid fa-table-tennis-paddle-ball" aria-hidden="true"></i></div>
+            <div><strong class="lang-zh">羽毛球</strong><strong class="lang-en">Badminton</strong></div>
+            <small><a href="/hobbies/badminton.html" target="_blank" rel="noopener"><span class="lang-zh">了解更多</span><span class="lang-en">Learn more</span></a></small>
+          </div>
+          <div class="hobby" data-hobby="football" role="listitem" tabindex="0">
+            <div class="icon"><i class="fa-regular fa-futbol" aria-hidden="true"></i></div>
+            <div><strong class="lang-zh">足球</strong><strong class="lang-en">Football</strong></div>
+            <small><a href="/hobbies/football.html" target="_blank" rel="noopener"><span class="lang-zh">了解更多</span><span class="lang-en">Learn more</span></a></small>
+          </div>
         </div>
-    </footer>
 
-    <script>
-        // 简单的滚动动画效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card, .skill, .project-card, .hobby');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            cards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
-            });
+        <div class="hobby-details" id="running-details" aria-hidden="true">
+          <div class="hobby-content">
+            <div class="hobby-image">[Running Photo]</div>
+            <div>
+              <h3 class="lang-zh">跑步</h3><h3 class="lang-en">Running</h3>
+              <p class="lang-zh">每日 5km。PB：400m 58.6s；800m 2:14；1000m 2:50；1500m 4:22；5k 17:22；10k 37:14。</p>
+              <p class="lang-en">Daily 5km. PBs: 400m 58.6s; 800m 2:14; 1000m 2:50; 1500m 4:22; 5k 17:22; 10k 37:14.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hobby-details" id="chess-details" aria-hidden="true">
+          <div class="hobby-content">
+            <div class="hobby-image">[Chess Photo]</div>
+            <div>
+              <h3 class="lang-zh">国际象棋</h3><h3 class="lang-en">Chess</h3>
+              <p class="lang-zh">偏好结构化开局：西西里（纳道尔夫/英国式攻击）、格林菲尔德与布局研究。</p>
+              <p class="lang-en">Prefer structural openings: Sicilian (Najdorf/English Attack), Grünfeld; opening structure studies.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hobby-details" id="music-details" aria-hidden="true">
+          <div class="hobby-content">
+            <div class="hobby-image">[Music Photo]</div>
+            <div>
+              <h3>“Elma”</h3>
+              <p class="lang-zh">偏好日摇、流行、摇滚。最爱歌手 Yorushika，专辑 Elma。</p>
+              <p class="lang-en">J-rock, pop, rock. Favorite artist Yorushika; album Elma.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hobby-details" id="badminton-details" aria-hidden="true">
+          <div class="hobby-content">
+            <div class="hobby-image">[Badminton Photo]</div>
+            <div>
+              <h3 class="lang-zh">羽毛球</h3><h3 class="lang-en">Badminton</h3>
+              <p class="lang-zh">高中全校双打冠军；偏好 100zz 拍、AB 线。</p>
+              <p class="lang-en">HS doubles champion; prefers 100zz racket, AB strings.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hobby-details" id="football-details" aria-hidden="true">
+          <div class="hobby-content">
+            <div class="hobby-image">[Football Photo]</div>
+            <div>
+              <h3>¡Hala Madrid!</h3>
+              <p class="lang-zh">十年皇马球迷。</p>
+              <p class="lang-en">Real Madrid fan; enjoy striker/goalkeeper roles.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="reveal">
+      <div class="container">
+        <div class="section-title"><span class="title-bar"></span><span class="lang-zh">联系我</span><span class="lang-en">Contact</span><span class="title-bar"></span></div>
+        <div class="card" style="text-align:center">
+          <p class="lang-zh">如需合作或讨论研究、项目，欢迎联系：</p>
+          <p class="lang-en">For collaborations or discussions, please reach out:</p>
+          <p style="margin-top:6px">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <a href="mailto:wangfeiming@mail.nankai.edu.cn">wangfeiming@mail.nankai.edu.cn</a>
+            &nbsp;·&nbsp;
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <a href="tel:+8618518193530">+86 18518193530</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div>© 2025 <span class="lang-zh">王飞鸣 · 南开大学统计与数据科学学院</span><span class="lang-en">Feiming Wang · Nankai University</span></div>
+      <div style="margin-top:6px">“<span class="lang-zh">允公允能 · 日新月异</span><span class="lang-en">Public Spirit & Practical Ability · Ever Upward</span>”</div>
+      <div class="only-print" style="margin-top:8px;font-size:.95rem">（打印版自动隐藏导航与互动模块）</div>
+    </div>
+  </footer>
+
+  <!-- ===== To Top ===== -->
+  <button id="toTop" class="btn to-top hide-print" aria-label="Back to top" style="position:fixed;right:14px;bottom:14px;display:none">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ===== Scripts：轻交互、可降级 ===== -->
+  <script>
+    // Language toggle with persistence + initial guess
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('langToggle');
+      const saved = localStorage.getItem('site-lang');
+      const guess = (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en';
+      const setLang = (lang)=>{ root.setAttribute('data-lang', lang); localStorage.setItem('site-lang', lang); };
+      setLang(saved || root.getAttribute('data-lang') || guess || 'zh');
+      btn.addEventListener('click', ()=> setLang((root.getAttribute('data-lang')||'zh')==='zh' ? 'en' : 'zh'));
+    })();
+
+    // Hobby accordion (click or enter key)
+    (function(){
+      const map = {
+        running: document.getElementById('running-details'),
+        chess: document.getElementById('chess-details'),
+        music: document.getElementById('music-details'),
+        badminton: document.getElementById('badminton-details'),
+        football: document.getElementById('football-details'),
+      };
+      const toggle = (key) => {
+        const target = map[key];
+        if(!target) return;
+        const isOpen = target.classList.contains('active');
+        Object.values(map).forEach(d=>{ d.classList.remove('active'); d.setAttribute('aria-hidden','true'); });
+        if(!isOpen){
+          target.classList.add('active');
+          target.setAttribute('aria-hidden','false');
+          target.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }
+      };
+      document.querySelectorAll('.hobby').forEach(h=>{
+        h.addEventListener('click', ()=> toggle(h.getAttribute('data-hobby')));
+        h.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle(h.getAttribute('data-hobby')); }});
+      });
+    })();
+
+    // Scroll to top button
+    (function(){
+      const btn = document.getElementById('toTop');
+      const onScroll = ()=>{ btn.style.display = window.scrollY>500 ? 'inline-flex' : 'none'; };
+      document.addEventListener('scroll', onScroll,{passive:true}); onScroll();
+      btn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    })();
+
+    // Print to PDF
+    document.getElementById('downloadPDF').addEventListener('click', ()=> window.print());
+
+    // Reveal on scroll (respect reduced motion)
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, {rootMargin:'0px 0px -10% 0px', threshold:.08});
+      document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    })();
+
+    // ScrollSpy: highlight current section in nav
+    (function(){
+      const links = Array.from(document.querySelectorAll('#navLinks a[href^="#"]'));
+      const map = new Map(links.map(a=>[a.getAttribute('href'), a]));
+      const ids = links.map(a=>a.getAttribute('href')).filter(Boolean);
+      const sections = ids.map(id=>document.querySelector(id)).filter(Boolean);
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          const id = '#'+e.target.id;
+          const link = map.get(id);
+          if(!link) return;
+          if(e.isIntersecting){ links.forEach(x=>x.classList.remove('active')); link.classList.add('active'); }
         });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 兴趣爱好点击事件
-            const hobbies = document.querySelectorAll('.hobby');
-            const hobbyDetails = document.querySelectorAll('.hobby-details');
-            
-            hobbies.forEach(hobby => {
-                hobby.addEventListener('click', function() {
-                    const hobbyType = this.getAttribute('data-hobby');
-                    const detailElement = document.getElementById(`${hobbyType}-details`);
-                    
-                    // 如果当前详情已经是激活状态，则关闭
-                    if (detailElement.classList.contains('active')) {
-                        detailElement.classList.remove('active');
-                    } else {
-                        // 关闭所有其他展开的爱好详情
-                        hobbyDetails.forEach(detail => {
-                            detail.classList.remove('active');
-                        });
-                        // 打开当前点击的爱好详情
-                        detailElement.classList.add('active');
-                        
-                        // 滚动到详情区域
-                        detailElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
-                });
-            });
-        });
-    </script>
+      }, {rootMargin:'-50% 0% -45% 0%', threshold:.01});
+      sections.forEach(s=> io.observe(s));
+    })();
+  </script>
+
+  <!-- ===== Schema ===== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Feiming Wang",
+    "alternateName":"王飞鸣",
+    "affiliation":{"@type":"CollegeOrUniversity","name":"Nankai University"},
+    "email":"mailto:wangfeiming@mail.nankai.edu.cn",
+    "url": "",
+    "image":"pic/pic1.jpg"
+  }
+  </script>
 </body>
 </html>
-
-
-
